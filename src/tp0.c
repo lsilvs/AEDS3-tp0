@@ -10,35 +10,53 @@
 
 int main(int argc, char *argv[]) {
 
-	char * fileName = "input.txt";
+	char * inputFile = "input.txt";
+	char * outputFile = "output.txt";
+	int numMatrizes, numLinhas, numColunas;
 
 	//Ler arquivo de entrada
 	FILE * filePointer = NULL;
-	if ((filePointer = fopen(fileName, "r")) == NULL) {
+	if ((filePointer = fopen(inputFile, "r")) == NULL) {
 		printf("Nao foi possivel abrir o arquivo.\n");
 	} else {
-		printf("Aberto arquivo de entrada %s \n", fileName);
+		printf("Aberto arquivo de entrada %s \n", inputFile);
+	}
+
+	fscanf(filePointer, "%d", &numMatrizes);
+
+
+	fscanf(filePointer, "%d", &numLinhas);
+	fscanf(filePointer, "%d", &numColunas);
+
+	int * vetor = (int *) malloc(numLinhas * numColunas * sizeof(int));	
+
+	int i;
+	for(i = 0; i < numLinhas * numColunas; i++) {
+		//for(int j = 0, j < numColunas, j++) {
+			fscanf(filePointer, "%d", &vetor[i]);
+		// }
+	}
+
+	for(i = 0; i < numLinhas * numColunas; i++) {
+		printf("%d\n", vetor[i]);
 	}
 
 
-	unsigned int stringSize = INITIAL_BUFFER_SIZE;
-	char * string = (char*) malloc(stringSize);
-	stringSize = getline(&string, &stringSize, file);
 
-	String * newString = CreateString(string);
-	free(string);
-	return newString;
-
+	/* Allocate space for an array with ten elements of type int. */
+	// int * vetor = (int *) malloc(n * sizeof(int));
+	
+	// free(vetor);
+	
 	// 	fprintf(file, "%s", value);
 
-	// //Fechar
-	// int IsEndOfFile(FILE * file) {
-	// 	//retorna se é o fim do arquivo ou não
-	// 	return feof(file);
-	// }
+	// FEOF
+	//retorna se é o fim do arquivo ou não
+	//return feof(file);
 
 	//retorna 0 se conseguiu fechar o arquivo com sucesso
 	printf("Fechando arquivo...\n");
 	printf("%d\n", fclose(filePointer));
+	return 0;
 
 }

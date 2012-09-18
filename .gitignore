@@ -10,3 +10,6 @@
 *.lai
 *.la
 *.a
+
+tp0
+/tp0.dSYM
