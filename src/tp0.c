@@ -10,36 +10,57 @@
 
 int main(int argc, char *argv[]) {
 
-	char * inputFile = "input.txt";
-	char * outputFile = "output.txt";
-	int numMatrizes, numLinhas, numColunas;
+	char * inputFileName = "input.txt";
+	char * outputFileName = "output.txt";
+	int numMatrizes, numLinhas1, numLinhas2, numLinhasResult, numColunas1, numColunas2, numColunasResult, i, j, k, l, m;
 
-	//Ler arquivo de entrada
-	FILE * filePointer = NULL;
-	if ((filePointer = fopen(inputFile, "r")) == NULL) {
+	//Abrir arquivo de entrada
+	FILE * inputFileOpen = NULL;
+	if ((inputFileOpen = fopen(inputFileName, "r")) == NULL) {
 		printf("Nao foi possivel abrir o arquivo.\n");
 	} else {
-		printf("Aberto arquivo de entrada %s \n", inputFile);
+		printf("Aberto arquivo de entrada %s \n", inputFileName);
 	}
 
-	fscanf(filePointer, "%d", &numMatrizes);
-
-
-	fscanf(filePointer, "%d", &numLinhas);
-	fscanf(filePointer, "%d", &numColunas);
-
-	int * vetor = (int *) malloc(numLinhas * numColunas * sizeof(int));	
-
-	int i;
-	for(i = 0; i < numLinhas * numColunas; i++) {
-		//for(int j = 0, j < numColunas, j++) {
-			fscanf(filePointer, "%d", &vetor[i]);
-		// }
+	//Abrir arquivo de saída
+	FILE * outputFileOpen = NULL;
+	if ((outputFileOpen = fopen(outputFileName, "w")) == NULL) {
+		printf("Nao foi possivel abrir o arquivo.\n");
+	} else {
+		printf("Aberto arquivo de entrada %s \n", outputFileName);
 	}
 
-	for(i = 0; i < numLinhas * numColunas; i++) {
-		printf("%d\n", vetor[i]);
+	fscanf(inputFileOpen, "%d", &numMatrizes);
+	fprintf(outputFileOpen, "%d\n", numMatrizes);
+
+	for(m = 0; m < numMatrizes; m++) {
+		fscanf(inputFileOpen, "%d", &numLinhas1);
+		fscanf(inputFileOpen, "%d", &numColunas1);
+
+		int * vetor1 = (int *) malloc(numLinhas1 * numColunas1 * sizeof(int));
+
+		for(i = 0; i < numLinhas1 * numColunas1; i++) {
+			fscanf(inputFileOpen, "%d", &vetor1[i]);
+		}
+
+		fscanf(inputFileOpen, "%d", &numLinhas2);
+		fscanf(inputFileOpen, "%d", &numColunas2);
+
+		int * vetor2 = (int *) malloc(numLinhas2 * numColunas2 * sizeof(int));
+
+		for(i = 0; i < numLinhas2 * numColunas2; i++) {
+			fscanf(inputFileOpen, "%d", &vetor2[i]);
+		}
+
+		numLinhasResult = numLinhas1 * numLinhas2;
+		numColunasResult = numColunas1 * numColunas2;
+
+		fprintf(outputFileOpen, "%d ", numLinhasResult);
+		fprintf(outputFileOpen, "%d\n", numColunasResult);
+
+		
 	}
+	
 
 
 
@@ -56,7 +77,8 @@ int main(int argc, char *argv[]) {
 
 	//retorna 0 se conseguiu fechar o arquivo com sucesso
 	printf("Fechando arquivo...\n");
-	printf("%d\n", fclose(filePointer));
+	printf("%d\n", fclose(inputFileOpen));
+	printf("%d\n", fclose(outputFileOpen));
 	return 0;
 
 }
