@@ -112,14 +112,17 @@ int main(int argc, char *argv[]) {
 			}
 			fprintf(outputFileOpen, "\n");
 		}
+
+		// Libera a matriz
+		for(i = 0; i < numLinhas1 * numLinhas2; i++) {
+			free(matrizResult[i]);
+		}
+		free(matrizResult);
 	}
-		
-	// free(vetor);
 
 	//retorna 0 se conseguiu fechar o arquivo com sucesso
-	printf("Fechando arquivo...\n");
+	printf("Fechando os arquivos...\n");
 	printf("%d\n", fclose(inputFileOpen));
 	printf("%d\n", fclose(outputFileOpen));
 	return 0;
-
 }

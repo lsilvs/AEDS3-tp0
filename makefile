@@ -4,7 +4,7 @@ OPTMIZE = -g3 -O3
 LIBS = -lc 
 
 #Objetos
-OBJS =  src/tp0.c
+OBJS =  src/main.c
 # Nome do aplicativo
 APPNAME = tp0
 #valgrind
