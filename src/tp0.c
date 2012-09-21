@@ -37,28 +37,80 @@ int main(int argc, char *argv[]) {
 		fscanf(inputFileOpen, "%d", &numLinhas1);
 		fscanf(inputFileOpen, "%d", &numColunas1);
 
-		int * vetor1 = (int *) malloc(numLinhas1 * numColunas1 * sizeof(int));
+		int ** matrizA = (int **) malloc(numLinhas1 * sizeof(int *));
 
-		for(i = 0; i < numLinhas1 * numColunas1; i++) {
-			fscanf(inputFileOpen, "%d", &vetor1[i]);
+		for(i = 0; i < numLinhas1; i++) {
+			matrizA[i] = (int *) malloc(numColunas1 * sizeof(int));
+		}	
+
+		for(i = 0; i < numLinhas1; i++) {
+			for(j = 0; j < numColunas1; j++) {
+				fscanf(inputFileOpen, "%d", &matrizA[i][j]);
+			}
 		}
 
 		fscanf(inputFileOpen, "%d", &numLinhas2);
 		fscanf(inputFileOpen, "%d", &numColunas2);
 
-		int * vetor2 = (int *) malloc(numLinhas2 * numColunas2 * sizeof(int));
+		int ** matrizB = (int **) malloc(numLinhas2 * sizeof(int *));
 
-		for(i = 0; i < numLinhas2 * numColunas2; i++) {
-			fscanf(inputFileOpen, "%d", &vetor2[i]);
+		for(i = 0; i < numLinhas2; i++) {
+			matrizB[i] = (int *) malloc(numColunas2 * sizeof(int));
+		}	
+
+		for(i = 0; i < numLinhas2; i++) {
+			for(j = 0; j < numColunas2; j++) {
+				fscanf(inputFileOpen, "%d", &matrizB[i][j]);
+			}
 		}
 
-		numLinhasResult = numLinhas1 * numLinhas2;
-		numColunasResult = numColunas1 * numColunas2;
+		int ** matrizResult = (int **) malloc(numLinhas1 * numLinhas2 * sizeof(int *));
 
-		fprintf(outputFileOpen, "%d ", numLinhasResult);
-		fprintf(outputFileOpen, "%d\n", numColunasResult);
+		for(i = 0; i < numLinhas1 * numLinhas2; i++) {
+			matrizResult[i] = (int *) malloc(numColunas1 * numColunas2 * sizeof(int));
+		}
 
-		
+		for (i = 0; i < numLinhas1; ++i) {
+			for (j = 0; j < numColunas1; ++j) {
+				for (k = 0; k < numLinhas2; ++k) {
+					for (l = 0; l < numColunas2; ++l) {
+						matrizResult[i * numLinhas2 + k][j * numColunas2 + l] = matrizA[i][j] * matrizB[k][l];
+						// printf("%s\n", matrizA[i][j] * matrizB[k][l]);
+					}
+				}
+			}
+		}
+
+
+		// Imprime a matriz
+		for(i = 0; i < numLinhas1 * numLinhas2; i++) {
+			for(j = 0; j < numColunas1 *numColunas2; j++) {
+				printf("%d ", matrizResult[i][j]);
+			}
+			printf("\n");
+		}
+
+		// numLinhasResult = numLinhas1 * numLinhas2;
+		// numColunasResult = numColunas1 * numColunas2;
+
+		// fprintf(outputFileOpen, "%d ", numLinhasResult);
+		// fprintf(outputFileOpen, "%d\n", numColunasResult);
+
+		// for (i = 0; i < numColunas1; i++) {
+		// 	for (j = 0; j < numColunas2; j++) {
+		// 		fprintf(outputFileOpen, "%d ", matrizA[i] * matrizB[j]);
+		// 	}
+		// }
+
+		// fprintf(outputFileOpen, "\n");
+
+		// for (i = 0; i < numColunas1; i++) {
+		// 	for (j; j < numColunasResult; j++) {
+		// 		fprintf(outputFileOpen, "%d ", matrizA[i] * matrizB[j]);
+		// 	}
+		// }
+
+		fprintf(outputFileOpen, "\n");
 	}
 	
 
