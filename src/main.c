@@ -4,14 +4,15 @@
 *		Data: 17/09/2012
 */
 
+#include "tp0.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int main(int argc, char *argv[]) {
 	// Declara as variáveis
-	char * inputFileName = "input2.txt";
-	char * outputFileName = "output.txt";
+	char *inputFileName = "input2.txt";
+	char *outputFileName = "output.txt";
+	int **matrizA, **matrizB, **matrizResult;
 	int numMatrizes, numLinhas1, numLinhas2, numLinhasResult, numColunas1, numColunas2, numColunasResult, i, j, k, l, m;
 
 	// Abrir arquivo de entrada
@@ -40,41 +41,21 @@ int main(int argc, char *argv[]) {
 		fscanf(inputFileOpen, "%d", &numLinhas1);
 		fscanf(inputFileOpen, "%d", &numColunas1);
 
-		// Aloca a matriz
-		int ** matrizA = (int **) malloc(numLinhas1 * sizeof(int *));
-		for(i = 0; i < numLinhas1; i++) {
-			matrizA[i] = (int *) malloc(numColunas1 * sizeof(int));
-		}
-
-		// Preenche a matriz
-		for(i = 0; i < numLinhas1; i++) {
-			for(j = 0; j < numColunas1; j++) {
-				fscanf(inputFileOpen, "%d", &matrizA[i][j]);
-			}
-		}
+		// Preenche a matriz A
+		// matrizA = preenche_matriz(inputFileOpen, numLinhas1, numColunas1);
 
 		// Lê linhas e colunas da matriz
 		fscanf(inputFileOpen, "%d", &numLinhas2);
 		fscanf(inputFileOpen, "%d", &numColunas2);
 
-		// Aloca a matriz
-		int ** matrizB = (int **) malloc(numLinhas2 * sizeof(int *));
-		for(i = 0; i < numLinhas2; i++) {
-			matrizB[i] = (int *) malloc(numColunas2 * sizeof(int));
-		}
+		// Preenche a matriz B
+		// matrizB = preenche_matriz(inputFileOpen, numLinhas2, numColunas2);
 
-		// Preenche a matriz
-		for(i = 0; i < numLinhas2; i++) {
-			for(j = 0; j < numColunas2; j++) {
-				fscanf(inputFileOpen, "%d", &matrizB[i][j]);
-			}
-		}
+		numLinhasResult = numLinhas1 * numLinhas2;
+		numColunasResult = numColunas1 * numColunas2;
 
-		// Aloca a matriz
-		int ** matrizResult = (int **) malloc(numLinhas1 * numLinhas2 * sizeof(int *));
-		for(i = 0; i < numLinhas1 * numLinhas2; i++) {
-			matrizResult[i] = (int *) malloc(numColunas1 * numColunas2 * sizeof(int));
-		}
+		// Aloca a matriz resultante
+		matrizResult = aloca_matriz(numLinhasResult, numColunasResult);
 
 		// Preenche a matriz
 		for (i = 0; i < numLinhas1; ++i) {
@@ -97,9 +78,6 @@ int main(int argc, char *argv[]) {
 			free(matrizB[i]);
 		}
 		free(matrizB);
-
-		numLinhasResult = numLinhas1 * numLinhas2;
-		numColunasResult = numColunas1 * numColunas2;
 
 		// Escreve o número de linhas e colunas no arquivo de saída
 		fprintf(outputFileOpen, "%d ", numLinhasResult);
