@@ -1,27 +1,34 @@
 # Compile/Link
 GCC = gcc
 OPTMIZE = -g3 -O3
-LIBS = -lc 
+LIBS = -lc
 
 #Objetos
-OBJS =  src/main.c
+OBJS =  src/main.c src/tp0.c
+
 # Nome do aplicativo
 APPNAME = tp0
+
 #valgrind
 VALGRIND = valgrind --tool=memcheck --leak-check=yes --show-reachable=yes
-#arquivos de exemplo
-INPUTFILE = input2.txt
+
+#arquivos
+INPUTFILE = input.txt
 OUTPUTFILE = output.txt
+GERAMATRIZES = src/geraMatrizes.c
 
-release : ; $(GCC) $(OPTMIZE) $(LIBS) $(OBJS) -o $(APPNAME)
+release: ; $(GCC) $(OPTMIZE) $(LIBS) $(OBJS) -o $(APPNAME)
 
-clean :
-	rm -f $(APPNAME) $(OUTPUTFILE)
+clean:
+	rm -f $(APPNAME) $(INPUTFILE) geraMatrizes
 
-run :
+run:
+	gcc $(GERAMATRIZES) -o geraMatrizes
+	./geraMatrizes
 	make
-	./$(APPNAME) $(INPUTFILE)
+	./$(APPNAME) $(INPUTFILE) $(OUTPUTFILE)
+	make clean
 
 analysis:
 	make
-	$(VALGRIND) ./$(APPNAME) $(INPUTFILE)
+	$(VALGRIND) ./$(APPNAME) $(INPUTFILE) $(OUTPUTFILE)

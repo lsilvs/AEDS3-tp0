@@ -4,19 +4,19 @@
 *		Data: 17/09/2012
 */
 
-#include "tp0.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "tp0.h"
 
 int main(int argc, char *argv[]) {
 	// Declara as variáveis
-	char *inputFileName = "input2.txt";
-	char *outputFileName = "output.txt";
+	char *inputFileName = argv[1]; // "input.txt";
+	char *outputFileName = argv[2]; // "output.txt";
 	int **matrizA, **matrizB, **matrizResult;
 	int numMatrizes, numLinhas1, numLinhas2, numLinhasResult, numColunas1, numColunas2, numColunasResult, i, j, k, l, m;
 
 	// Abrir arquivo de entrada
-	FILE * inputFileOpen = NULL;
+	FILE * inputFileOpen;
 	if ((inputFileOpen = fopen(inputFileName, "r")) == NULL) {
 		printf("Nao foi possivel abrir o arquivo.\n");
 	} else {
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	// Abrir arquivo de saída
-	FILE * outputFileOpen = NULL;
+	FILE * outputFileOpen;
 	if ((outputFileOpen = fopen(outputFileName, "w")) == NULL) {
 		printf("Nao foi possivel abrir o arquivo.\n");
 	} else {
@@ -39,17 +39,17 @@ int main(int argc, char *argv[]) {
 	for(m = 0; m < numMatrizes; m++) {
 		// Lê linhas e colunas da matriz
 		fscanf(inputFileOpen, "%d", &numLinhas1);
-		fscanf(inputFileOpen, "%d", &numColunas1);
+		fscanf(inputFileOpen, "%d", &numColunas1);	
 
 		// Preenche a matriz A
-		// matrizA = preenche_matriz(inputFileOpen, numLinhas1, numColunas1);
+		matrizA = preenche_matriz(inputFileOpen, numLinhas1, numColunas1);
 
 		// Lê linhas e colunas da matriz
 		fscanf(inputFileOpen, "%d", &numLinhas2);
 		fscanf(inputFileOpen, "%d", &numColunas2);
 
 		// Preenche a matriz B
-		// matrizB = preenche_matriz(inputFileOpen, numLinhas2, numColunas2);
+		matrizB = preenche_matriz(inputFileOpen, numLinhas2, numColunas2);
 
 		numLinhasResult = numLinhas1 * numLinhas2;
 		numColunasResult = numColunas1 * numColunas2;
@@ -84,15 +84,15 @@ int main(int argc, char *argv[]) {
 		fprintf(outputFileOpen, "%d\n", numColunasResult);
 
 		// Escreve a matriz no arquivo de saída
-		for(i = 0; i < numLinhas1 * numLinhas2; i++) {
-			for(j = 0; j < numColunas1 *numColunas2; j++) {
+		for(i = 0; i < numLinhasResult; i++) {
+			for(j = 0; j < numColunasResult; j++) {
 				fprintf(outputFileOpen,"%d ", matrizResult[i][j]);
 			}
 			fprintf(outputFileOpen, "\n");
 		}
 
 		// Libera a matriz
-		for(i = 0; i < numLinhas1 * numLinhas2; i++) {
+		for(i = 0; i < numLinhasResult; i++) {
 			free(matrizResult[i]);
 		}
 		free(matrizResult);
