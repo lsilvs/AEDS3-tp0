@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[]) {
 	// Declara as variáveis
-	char * inputFileName = "input.txt";
+	char * inputFileName = "input2.txt";
 	char * outputFileName = "output.txt";
 	int numMatrizes, numLinhas1, numLinhas2, numLinhasResult, numColunas1, numColunas2, numColunasResult, i, j, k, l, m;
 

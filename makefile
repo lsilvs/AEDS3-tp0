@@ -10,7 +10,7 @@ APPNAME = tp0
 #valgrind
 VALGRIND = valgrind --tool=memcheck --leak-check=yes --show-reachable=yes
 #arquivos de exemplo
-INPUTFILE = input.txt
+INPUTFILE = input2.txt
 OUTPUTFILE = output.txt
 
 release : ; $(GCC) $(OPTMIZE) $(LIBS) $(OBJS) -o $(APPNAME)
