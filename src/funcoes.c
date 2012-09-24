@@ -19,7 +19,7 @@ int **aloca_matriz(int linhas, int colunas) {
 
 int **preenche_matriz(FILE *arquivo, int linhas, int colunas) {
 	// Aloca a matriz
-	int **matriz;
+	int ** matriz;
 	int i, j;
 
 	matriz = aloca_matriz(linhas, colunas);
@@ -31,4 +31,13 @@ int **preenche_matriz(FILE *arquivo, int linhas, int colunas) {
 		}
 	}
 	return(matriz);
+}
+
+void desaloca_matriz(int ** matriz, int linhas) {
+	// Desaloca a matriz
+	int i;
+	for(i = 0; i < linhas; i++) {
+		free(matriz[i]);
+	}
+	free(matriz);
 }

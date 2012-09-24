@@ -10,9 +10,9 @@
 
 int main(int argc, char *argv[]) {
 	// Declara as variáveis
-	char *inputFileName = argv[1]; // "input.txt";
-	char *outputFileName = argv[2]; // "output.txt";
-	int **matrizA, **matrizB, **matrizResult;
+	char * inputFileName = argv[1]; // "input.txt";
+	char * outputFileName = argv[2]; // "output.txt";
+	int ** matrizA, ** matrizB, ** matrizResult;
 	int numInstancias, numLinhasA, numLinhasB, numLinhasResult, numColunasA, numColunasB, numColunasResult, i, j, k, l, m;
 
 	// Abrir arquivo de entrada
@@ -44,20 +44,21 @@ int main(int argc, char *argv[]) {
 		// Preenche a matriz A
 		matrizA = preenche_matriz(inputFileOpen, numLinhasA, numColunasA);
 
-		// Lê linhas e colunas da matriz
+		// Lê linhas e colunas da matriz B
 		fscanf(inputFileOpen, "%d", &numLinhasB);
 		fscanf(inputFileOpen, "%d", &numColunasB);
 
 		// Preenche a matriz B
 		matrizB = preenche_matriz(inputFileOpen, numLinhasB, numColunasB);
 
+		// Seta linhas e colunas da matriz resultante
 		numLinhasResult = numLinhasA * numLinhasB;
 		numColunasResult = numColunasA * numColunasB;
 
 		// Aloca a matriz resultante
 		matrizResult = aloca_matriz(numLinhasResult, numColunasResult);
 
-		// Preenche a matriz
+		// Preenche a matriz resultante (Produto de Kronecker)
 		for (i = 0; i < numLinhasA; ++i) {
 			for (j = 0; j < numColunasA; ++j) {
 				for (k = 0; k < numLinhasB; ++k) {
@@ -68,22 +69,15 @@ int main(int argc, char *argv[]) {
 			}
 		}
 
-		// Libera as matrizes não utilizadas
-		for(i = 0; i < numLinhasA; i++) {
-			free(matrizA[i]);
-		}
-		free(matrizA);
-
-		for(i = 0; i < numLinhasB; i++) {
-			free(matrizB[i]);
-		}
-		free(matrizB);
-
+		// Libera as matrizes já utilizadas
+		desaloca_matriz(matrizA, numLinhasA);
+		desaloca_matriz(matrizB, numLinhasB);
+		
 		// Escreve o número de linhas e colunas no arquivo de saída
 		fprintf(outputFileOpen, "%d ", numLinhasResult);
 		fprintf(outputFileOpen, "%d\n", numColunasResult);
 
-		// Escreve a matriz no arquivo de saída
+		// Escreve a matriz resultante no arquivo de saída
 		for(i = 0; i < numLinhasResult; i++) {
 			for(j = 0; j < numColunasResult; j++) {
 				fprintf(outputFileOpen,"%d ", matrizResult[i][j]);
@@ -91,16 +85,18 @@ int main(int argc, char *argv[]) {
 			fprintf(outputFileOpen, "\n");
 		}
 
-		// Libera a matriz
-		for(i = 0; i < numLinhasResult; i++) {
-			free(matrizResult[i]);
-		}
-		free(matrizResult);
+		// Libera a matriz resultante
+		desaloca_matriz(matrizResult, numLinhasResult);
 	}
 
-	//retorna 0 se conseguiu fechar o arquivo com sucesso
-	printf("Fechando os arquivos...\n");
-	printf("%d\n", fclose(inputFileOpen));
-	printf("%d\n", fclose(outputFileOpen));
+	// Retorna 0 se conseguiu fechar o arquivo com sucesso
+	if(fclose(inputFileOpen) == 0) {
+		printf("%s fechado com sucesso\n", inputFileName);
+	}
+
+	if(fclose(outputFileOpen) == 0) {
+		printf("%s fechado com sucesso\n", outputFileName);
+	}
+
 	return 0;
 }
