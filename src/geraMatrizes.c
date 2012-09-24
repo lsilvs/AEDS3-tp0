@@ -10,7 +10,7 @@
 int main(int argc, char *argv[]) {
 	// Declara as variáveis
 	char * outputFileName = "input.txt";
-	int instancias = 17, i, j, inst;
+	int instancias = 865, i, j, inst;
 	srand((unsigned)time(NULL));
 
 	// Abrir arquivo de saída
@@ -24,8 +24,8 @@ int main(int argc, char *argv[]) {
 	fprintf(outputFileOpen, "%d\n", instancias);
 
 	for (inst = 0; inst < instancias * 2; ++inst) {
-		int linhas = (rand()%10)+1;
-		int colunas = (rand()%10)+1;
+		int linhas = (rand()%22)+1;
+		int colunas = (rand()%22)+1;
 		
 		fprintf(outputFileOpen, "%d ", linhas);
 		fprintf(outputFileOpen, "%d\n", colunas);

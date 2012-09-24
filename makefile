@@ -4,13 +4,14 @@ OPTMIZE = -g3 -O3
 LIBS = -lc
 
 #Objetos
-OBJS =  src/main.c src/tp0.c
+OBJS =  src/tp0.c src/funcoes.c
 
 # Nome do aplicativo
 APPNAME = tp0
 
 #valgrind
-VALGRIND = valgrind --tool=memcheck --leak-check=yes --show-reachable=yes
+VALGRIND = valgrind --tool=memcheck
+# --leak-check=yes --show-reachable=yes
 
 #arquivos
 INPUTFILE = input.txt
@@ -27,7 +28,6 @@ run:
 	./geraMatrizes
 	make
 	./$(APPNAME) $(INPUTFILE) $(OUTPUTFILE)
-	make clean
 
 analysis:
 	make
