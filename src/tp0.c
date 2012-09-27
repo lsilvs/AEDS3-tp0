@@ -10,8 +10,8 @@
 
 int main(int argc, char *argv[]) {
 	// Declara as variáveis
-	char * inputFileName = argv[1]; // "input.txt";
-	char * outputFileName = argv[2]; // "output.txt";
+	char * inputFileName = argv[1];
+	char * outputFileName = argv[2];
 	int ** matrizA, ** matrizB, ** matrizResult;
 	int numInstancias, numLinhasA, numLinhasB, numLinhasResult, numColunasA, numColunasB, numColunasResult, i, j, k, l, m;
 

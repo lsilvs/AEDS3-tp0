@@ -10,8 +10,7 @@ OBJS =  src/tp0.c src/funcoes.c
 APPNAME = tp0
 
 #valgrind
-VALGRIND = valgrind --tool=memcheck
-# --leak-check=yes --show-reachable=yes
+VALGRIND = valgrind -v --tool=memcheck --leak-check=full --show-reachable=yes
 
 #arquivos
 INPUTFILE = input.txt
@@ -25,9 +24,15 @@ clean:
 
 run:
 	gcc $(GERAMATRIZES) -o geraMatrizes
-	./geraMatrizes
+	./geraMatrizes $(INPUTFILE)
 	make
 	./$(APPNAME) $(INPUTFILE) $(OUTPUTFILE)
+
+time:
+	gcc $(GERAMATRIZES) -o geraMatrizes
+	./geraMatrizes $(INPUTFILE) 150
+	make
+	time ./$(APPNAME) $(INPUTFILE) $(OUTPUTFILE)
 
 analysis:
 	make
